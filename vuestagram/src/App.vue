@@ -16,7 +16,7 @@
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
+      <input @change="upload" type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
@@ -53,16 +53,22 @@ export default {
       // })
       axios.get(`https://codingapple1.github.io/vue/more${this.moreCnt}.json`)
       //파라미터가 하나일 경우 arrow function 의 소괄호 생략 가능하다. (e)=> ,,, e =>
-      .then( result =>{
-        console.log(result);
-        this.postData.push(result.data);
-      })
-      .catch(  () => {
-        console.log('문제가 발생했어요.');
-      })
-
-      this.moreCnt++;
+        .then( result =>{
+          console.log(result);
+          this.postData.push(result.data);
+       })
+        .catch(  () => {
+          console.log('문제가 발생했어요.');
+       })
+          this.moreCnt++;
      
+    },
+    upload(e){
+      let file = e.target.files;
+      console.log(file[0]);
+      let url = URL.createObjectURL(file[0]);
+      console.log(url);
+      this.step++;
     },
 
   }
