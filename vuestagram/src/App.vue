@@ -1,18 +1,23 @@
 <template>
   <div class="header">
-    <ul class="header-button-left">
+    <ul class="header-button-left" @click="step--">
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li v-if="step == 1" @click="step++">Next</li>
+      <li v-if="step == 2" @click="publish">발행</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <ContainerView :postData="postData" :step="step"/>
+  <ContainerView
+    :postData="postData"
+    :uploadImgUrl="uploadImgUrl"
+    :step="step"
+    @write="write = $event"
+  />
 
   <button @click="more">More..</button>
-  
 
   <div class="footer">
     <ul class="footer-button-plus">
@@ -20,12 +25,6 @@
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
-
-
-
-
-
-
 </template>
 
 <script>
@@ -40,38 +39,53 @@ export default {
       postData: postData,
       moreCnt: 0,
       step: 0,
+      uploadImgUrl: '',
+      write: '',
     };
   },
   components: {
     ContainerView,
   },
   methods: {
-    more(){
+    more() {
       //post는 이렇게 사용가능
       // axios.post('URL', {name : 'kim'}).then().catch((err) => {
       //   console.log(err);
       // })
-      axios.get(`https://codingapple1.github.io/vue/more${this.moreCnt}.json`)
-      //파라미터가 하나일 경우 arrow function 의 소괄호 생략 가능하다. (e)=> ,,, e =>
-        .then( result =>{
+      axios
+        .get(`https://codingapple1.github.io/vue/more${this.moreCnt}.json`)
+        //파라미터가 하나일 경우 arrow function 의 소괄호 생략 가능하다. (e)=> ,,, e =>
+        .then((result) => {
           console.log(result);
           this.postData.push(result.data);
-       })
-        .catch(  () => {
-          console.log('문제가 발생했어요.');
-       })
-          this.moreCnt++;
-     
+        })
+        .catch(() => {
+          console.log("문제가 발생했어요.");
+        });
+      this.moreCnt++;
     },
-    upload(e){
+    upload(e) {
       let file = e.target.files;
-      console.log(file[0]);
       let url = URL.createObjectURL(file[0]);
-      console.log(url);
+      this.uploadImgUrl = url;
       this.step++;
     },
+    publish() {
+      let myPosting = {
+        name: "HandSome Kim",
+        userImage: "https://placeimg.com/100/100/arch",
+        postImage: this.uploadImgUrl,
+        likes: 999,
+        date: "Apr 20",
+        liked: false,
+        content: this.write,
+        filter: "clarendon",
+      };
 
-  }
+      this.postData.unshift(myPosting);
+      this.step = 0;
+    },
+  },
 };
 </script>
 
