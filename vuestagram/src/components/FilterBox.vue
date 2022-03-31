@@ -1,15 +1,24 @@
 <template>
-  <div :class="`${filter} filter-item`" :style="{ backgroundImage : `url(${uploadImgUrl})` }"></div> 
+  <div @click="fire"
+    :class="`${filter} filter-item`"
+    :style="{ backgroundImage: `url(${uploadImgUrl})` }">
+    <slot></slot>
+  </div>
 </template>
 
 <script>
 export default {
-    name : 'filterBox',
-    props: {
-        uploadImgUrl : String,
-        filter : String,
-    }
-}
+  name: "filterBox",
+  props: {
+    uploadImgUrl: String,
+    filter: String,
+  },
+  methods: {
+    fire() {
+      this.emitter.emit('sendFilter', this.filter);
+    },
+  },
+};
 </script>
 
 <style>
@@ -19,8 +28,8 @@ export default {
   margin: 10px 10px 10px auto;
   padding: 8px;
   display: inline-block;
-  color : white;
+  color: white;
   background-size: cover;
-  background-position : center;
+  background-position: center;
 }
 </style>

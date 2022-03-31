@@ -41,7 +41,13 @@ export default {
       step: 0,
       uploadImgUrl: '',
       write: '',
+      appliedFilter : '',
     };
+  },
+  mounted(){
+    this.emitter.on('sendFilter', (filterName)=>{
+      this.appliedFilter = filterName;
+    })
   },
   components: {
     ContainerView,
@@ -79,7 +85,7 @@ export default {
         date: "Apr 20",
         liked: false,
         content: this.write,
-        filter: "clarendon",
+        filter: this.appliedFilter,
       };
 
       this.postData.unshift(myPosting);

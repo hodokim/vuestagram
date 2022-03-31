@@ -13,7 +13,11 @@
     <div v-if="step==1">
         <div class="upload-image" :style="{ backgroundImage : `url(${uploadImgUrl})` }"></div>
         <div class="filters">
-          <FilterBox v-for="item in filterHead" :key="item" :filter="item" :uploadImgUrl="uploadImgUrl"></FilterBox>
+          <FilterBox v-for="item in filterHead" :key="item" 
+          :filter="item" :uploadImgUrl="uploadImgUrl">
+          {{item}}
+          </FilterBox>
+         
         </div>
     </div>
 
@@ -37,6 +41,11 @@ export default {
     return {
       filterHead : filterData,
     }
+  },
+  mounted() {
+    this.emitter.on('sendFilter', (a)=>{
+      this.filterHead = a;
+    })
   },
   components: {
     PostView,
