@@ -6,4 +6,4 @@ let emitter = mitt();
 let app = createApp(App);
 app.config.globalProperties.emitter = emitter;
 
-createApp(App).mount('#app')
+app.mount('#app')

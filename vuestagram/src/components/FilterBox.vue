@@ -16,7 +16,7 @@ export default {
   methods: {
     fire() {
       this.emitter.emit('sendFilter', this.filter);
-    },
+    }
   },
 };
 </script>
