@@ -9,14 +9,12 @@
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
-
   <ContainerView
     :postData="postData"
     :uploadImgUrl="uploadImgUrl"
     :step="step"
     @write="write = $event"
   />
-
   <button @click="more">More..</button>
 
   <div class="footer">
@@ -29,14 +27,13 @@
 
 <script>
 import ContainerView from "./components/ContainerView.vue";
-import postData from "./assets/postData.js";
 import axios from "axios";
 
 export default {
   name: "App",
   data() {
     return {
-      postData: postData,
+      postData: this.$store.state.postData,
       moreCnt: 0,
       step: 0,
       uploadImgUrl: '',

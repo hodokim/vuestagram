@@ -3,6 +3,7 @@
     <div v-if="step==0"> 
         <PostView
           :postData="postData[i]"
+          :dataIdx="i"
           v-for="(item, i) in postData"
           :key="i"
         ></PostView>

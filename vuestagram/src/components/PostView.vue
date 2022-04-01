@@ -4,7 +4,9 @@
       <div class="profile"></div>
       <span class="profile-name">{{postData.name}}</span>
     </div>
-    <div :class="postData.filter" class="post-body" :style="{ backgroundImage : `url(${postData.postImage})` }"></div>
+    <div :class="postData.filter" class="post-body" 
+    @click="$store.commit('likesUp',dataIdx)"
+    :style="{ backgroundImage : `url(${postData.postImage})` }"></div>
     <div class="post-content">
       <p>{{postData.likes}}</p>
       <p><strong>{{ postData.name }}</strong> {{ postData.content }}</p>
@@ -17,6 +19,7 @@
 export default {
 props: {
   postData : Object,
+  dataIdx : Number,
 }
 
 };
