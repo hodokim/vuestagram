@@ -9,12 +9,18 @@
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
+
+
+  <button @click="getData">더보기</button>
+
+
   <ContainerView
     :postData="postData"
     :uploadImgUrl="uploadImgUrl"
     :step="step"
     @write="write = $event"
   />
+
   <button @click="more">More..</button>
 
   <div class="footer">
@@ -28,6 +34,8 @@
 <script>
 import ContainerView from "./components/ContainerView.vue";
 import axios from "axios";
+import {mapState,mapMutations, mapActions} from 'vuex'
+
 
 export default {
   name: "App",
@@ -49,7 +57,15 @@ export default {
   components: {
     ContainerView,
   },
+  computed : {
+    ...mapState(['name']),
+    ...mapState({
+       작명 : 'name'
+       }),
+  },
   methods: {
+    ...mapMutations(['setMore','likesUp']),
+    ...mapActions(['getData']),
     more() {
       //post는 이렇게 사용가능
       // axios.post('URL', {name : 'kim'}).then().catch((err) => {
