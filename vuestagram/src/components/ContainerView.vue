@@ -5,8 +5,7 @@
           :postData="postData[i]"
           :dataIdx="i"
           v-for="(item, i) in postData"
-          :key="i"
-        ></PostView>
+          :key="i"></PostView>
     </div>
 
 
@@ -30,12 +29,21 @@
         </div>
     </div>
   </div>
+
+  <div v-if="step == 3">
+      <MyView></MyView>
+  </div>
+
+
+
+
 </template>
 
 <script>
 import PostView from "./PostView.vue";
 import FilterBox from "./FilterBox.vue";
 import filterData from "../assets/filterData.js";
+import MyView from "./MyView.vue";
 
 export default {
   data() {
@@ -52,6 +60,7 @@ export default {
   components: {
     PostView,
     FilterBox,
+    MyView,
   },
   props: {
     postData: Array,

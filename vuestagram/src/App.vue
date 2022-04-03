@@ -43,7 +43,7 @@ export default {
     return {
       postData: this.$store.state.postData,
       moreCnt: 0,
-      step: 0,
+      step: 3,
       uploadImgUrl: '',
       write: '',
       appliedFilter : '',
